@@ -1,10 +1,6 @@
 /// DTTQ 08102007 <3
 #include <iostream>
 #include <algorithm>
-#include <vector>
-#include <cstring>
-#include <set>
-#include <time.h>
 #define llong long long
 
 using namespace std;
@@ -95,40 +91,7 @@ bool fast_scan(T &num) {
     return true;
 }
 
-int randInt(int l, int r) {
-    int _rand = rand() * rand();
-    _rand *= (rand() % 2 + 1);
-    return l + _rand % (r-l+1);
-}
-
-void test_case() {
-    set<pair<int, int> > S;
-    freopen("SPID.inp", "w", stdout);
-    cout << 1000 << " " << 1000000 << " " <<  randInt(30000, 50000) << "\n";
-    for(int i=1; i<=1000; ++i) {
-        int x = randInt(-60000, 60000);
-        int y = randInt(-60000, 60000);
-        while (S.count(make_pair(x, y))) x = randInt(-60000, 60000), y = randInt(-60000, 60000);
-        S.insert(make_pair(x, y)); cout << x << " " << y << "\n";
-    }
-    S.clear();
-    for(int i=1; i<=1000000; ++i) {
-        int x = randInt(40000, 100000);
-        int y = randInt(40000, 100000);
-        if (rand() % 2) x = -x;
-        if (rand() % 2) y = -y;
-        while (S.count(make_pair(x, y))) {
-            x = randInt(40000, 100000), y = randInt(40000, 100000);
-            if (rand() % 2) x = -x;
-            if (rand() % 2) y = -y;
-        }
-        S.insert(make_pair(x, y)); cout << x << " " << y << "\n";
-    }
-}
-
 int main() {
-    srand(time(NULL));
-    //test_case();
     freopen("SPID.inp", "r", stdin);
     freopen("SPID.out", "w", stdout);
     fast_scan(n); fast_scan(m); fast_scan(r);
@@ -143,7 +106,7 @@ int main() {
     Node root = make_tree(Q, m, 0, 2);
     int res = 0;
     for(int i=0; i<n; ++i) {
-        llong best_dist = 1e18;
+        llong best_dist = r*r+1;
         nearest(root, &P[i], 0, 2, &best_dist);
         if (best_dist <= r*r) ++res;
     }
